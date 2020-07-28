@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式匹配</title>
+</head>
+<body>
+    <script>
+        var isMatch = function(s, p) {
+            s = Array.from(s);
+            p = Array.from(p);
+            console.log(s, p)
+            // let n = Math.max(s.length, p.length)
+            function check(i) {
+                if (p[i] === '.' || s[i] === p[i]) {
+                    continue;
+                } else if (p[i] === '*') {
+                    p.splice()
+                } else if (s[i] !== p[i] && p[i + 1] === '*'){
+                    p.splice(i, 2);
+                    check(i);
+                }
+            }
+            for (let i = 0; i < s.length; i ++) {
+                if (p[i] === '.' && p[i + 1] === '*') {
+                    if (p[i + 2]) {
+                        for (let j = i + 2; j < p.length; j ++) {
+                            if (p[j] !== '.') {
+                                let index = s.indexOf(p[j], i + 1);
+                                if (index > 0) {    
+                                    p.splice(i, 2);
+                                    for (let k = i; k < index; k ++) {
+                                        p.splice(k, 0, '.');
+                                    }
+                                } else {
+                                    return false;
+                                }
+                                break;
+                            }
+                            if (j === p.length - 1) {
+                                return true;
+                            }   
+                        }    
+                    } else {
+                        return true;
+                    }
+                }
+                check(i);
+                if (s[i] === p[i] && p[i + 1] === '*') {
+                    if (p[i + 2]) {
+                        // if (p[i + 2] === )
+                    } else {
+                        let str = p[i];  
+                        p.splice(i, 2);
+                        for (let j = 0; j < s.length - i - 1; j ++) {
+                            p.push(str);
+                        }
+                    }
+                }
+            }
+        };
+        
+        isMatch('aa', 'aaaa')
+    </script>
+</body>
+</html>

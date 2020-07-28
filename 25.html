@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>判断子序列</title>
+</head>
+<body>
+    <script>
+        var isSubsequence = function(s, t) {
+            for (let item of s) {
+                let index = t.indexOf(item);
+                if (index >=0) {
+                    t = t.slice(index + 1);
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        };
+        isSubsequence('ace', 'abcde');
+    </script>
+</body>
+</html>

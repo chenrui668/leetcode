@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无重复字符的最长子串</title>
+</head>
+<body>
+    <script>
+        // function a(n, arr) {
+        //     let arr2 = [], arr3 = [];
+        //     for(let i = 0; i < n; i ++) {
+        //         arr2.push(arr[i])
+        //         if (arr[i + 1] !== arr[i] + 1 || i + 1 === n) {
+        //             if (arr2.length >= 3) {
+        //                 let value = `${arr2[0]}-${arr2[arr2.length - 1]}`;
+        //                 arr3.push(value);
+        //             } else {
+        //                 arr3 = [...arr3, ...arr2];
+        //             }
+        //             arr2 = [];
+        //         }
+        //     }
+        //     return arr3.join(' ');
+        // }
+        // console.log(a(6, [1,2,5,7]));
+        var lengthOfLongestSubstring = function(s) {
+            let arr = s.split('');
+            let arr2 = '';
+            let len = 0;
+            for(let i = 0; i < arr.length; i ++) {
+                let index = arr2.indexOf(arr[i]);
+                arr2 += arr[i];
+                if (index >= 0) {
+                    len = arr2.length - 1 > len ? arr2.length - 1 : len;
+                    arr2 = arr2.slice(index + 1);
+                }
+                if (i === arr.length - 1) {
+                    len = arr2.length > len ? arr2.length : len;
+                } 
+            }
+            return len || s.length;
+        };
+        console.log(lengthOfLongestSubstring(''));
+    </script>
+</body>
+</html>

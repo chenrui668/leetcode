@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顺时针打印矩阵</title>
+</head>
+<body>
+    <script>
+        var spiralOrder = function(matrix) {
+            let res = [];
+            while (matrix.flat().length > 0) {
+                res.push(...matrix.shift())
+                if (matrix.flat().length > 0) {
+                    for (let i = 0; i <= matrix.length - 2; i ++) {
+                        res.push(matrix[i].pop())
+                    }
+                } else {
+                    break;
+                }
+                if (matrix.flat().length > 0) {
+                    res.push(...matrix.pop().reverse())
+                } else {
+                    break;
+                }
+                if (matrix.flat().length > 0) {
+                    for (let i = matrix.length - 1; i > 0; i --) {
+                        res.push(matrix[i].shift())
+                    }
+                } else {
+                    break;
+                }
+            }
+            console.log(res)
+            return res;
+        };
+        spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
+    </script>
+</body>
+</html>

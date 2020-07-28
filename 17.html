@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拿硬币</title>
+</head>
+<body>
+    <script>
+        var minCount = function(coins) {
+            // let sum = 0;
+            // for (let item of coins) {
+            //     sum += Math.ceil(item/2);
+            // }
+            // return sum;
+            return coins.reduce((prev, item) => prev + Math.ceil(item/2), 0)
+        };
+        minCount([4, 2, 1])
+    </script>
+</body>
+</html>

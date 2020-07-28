@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=0, initial-scale=1.0">
+    <title>最长公共前缀</title>
+</head>
+<body>
+    <script>
+        var longestCommonPrefix = function(strs) {
+            if(!strs[0]) return '';
+            let key = strs[0];
+            let str = '';
+            for (let i = 0; i < key.length; i ++) {
+                if (strs.every(item => item[i] === key[i])) {
+                    str += key[i];
+                } else {
+                    return str;
+                }
+            }
+            return str;
+        };
+    </script>
+</body>
+</html>

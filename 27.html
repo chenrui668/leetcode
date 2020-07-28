@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>矩阵中的路径</title>
+</head>
+<body>
+    <script>
+        var exist = function(board, word) {
+            let rows = board.length;
+            let cols = board[0].length;
+            for (let i = 0; i < rows; i ++) {
+                for (let j = 0; j < cols; j ++) {
+                    if (board[i][j] === word.charAt(0)) {
+                        if (check(board, word, rows, cols, 0, i, j)) {
+                            return true;
+                        };
+                    }
+                }
+            }
+            return false;
+        };
+        function check(board, word, rows, cols, index, i, j) {
+            if (i < 0 || i > rows - 1 || j < 0 || j > cols - 1) {
+                return false;
+            }
+            if (board[i][j] === word.charAt(index)) {
+                if (index === word.length - 1) {
+                    return true;
+                }
+                let temp = board[i][j];
+                board[i][j] = '';
+                let res = check(board, word, rows, cols, index + 1, i - 1, j) || check(board, word, rows, cols, index + 1, i, j + 1) || check(board, word, rows, cols, index + 1, i + 1, j) || check(board, word, rows, cols, index + 1, i, j - 1);
+                board[i][j] = temp;
+                return res;
+            } else {
+                return false;
+            }
+        }
+        console.log(exist([["a","b"],["c","d"]], "abd"));
+    </script>
+</body>
+</html>

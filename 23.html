@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>礼物的最大价值</title>
+</head>
+<body>
+    <script>
+        var maxValue = function(grid) {
+            let arr = [[]];
+            let rows = grid.length;
+            let cols = grid[0].length;
+            arr[0][0] = grid[0][0];
+            for (let i = 1; i < cols; i ++) {
+                arr[0][i] = grid[0][i] + arr[0][i - 1];
+            }
+            for (let j = 1; j < rows; j ++) {
+                arr.push([]);
+                arr[j][0] = grid[j][0] + arr[j - 1][0];
+            }
+            for (let i = 1; i < rows; i ++) {
+                for (let j = 1; j < cols; j ++) {
+                    arr[i][j] = grid[i][j] + Math.max(arr[i - 1][j], arr[i][j - 1]);
+                }
+            }
+            return arr[rows - 1][cols - 1];
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跳水板</title>
+</head>
+<body>
+    <script>
+        var divingBoard = function(shorter, longer, k) {
+            let arr = [];
+            for (let i = 0; i < k + 1; i ++) {
+                arr.push(shorter * (k - i) + longer * i)
+            }
+            return [...new Set(arr.filter(i => i !== 0))];
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>罗马数字转整数</title>
+</head>
+<body>
+    <script>
+        var romanToInt = function(s) {
+            let arr = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
+            let i = 0;
+            let num = 0;
+            while(i < s.length) {
+                let index = arr.indexOf(s[i]);
+                if (index % 2 === 0) {
+                    let index2 = arr.indexOf(s[i + 1]) 
+                    if (index2 === index + 1) {
+                        num += 4 * Math.pow(10, index / 2);
+                        i += 2;
+                    } else if (index2 === index + 2) {
+                        num += 9 * Math.pow(10, index / 2);
+                        i += 2;
+                    } else {
+                        num += Math.pow(10, index / 2);
+                        i ++;
+                    }
+                } else {
+                    num += 5 * Math.pow(10, (index - 1) / 2);
+                    i ++;
+                }
+            }
+            return num;
+        };
+    </script>
+</body>
+</html>

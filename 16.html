@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最接近的三数之和</title>
+</head>
+<body>
+    <script>
+        var threeSumClosest = function(nums, target) {
+            let result = null;
+            let reduce = null;
+            nums.sort((a, b) => a - b);
+            if (nums.length >= 3) {
+                for (let i = 1; i <= nums.length - 2; i ++) {
+                    let l = 0;
+                    let r = nums.length - 1;
+                    while(l < i && r > i) {
+                        let res = nums[i] + nums[l] + nums[r];
+                        if (res === target) {
+                            return res;
+                        } else if (res > target) {
+                            if (result === null) {
+                                result = res;
+                                reduce = res - target;
+                            } else {
+                                if (res - target < reduce) {
+                                    result = res;
+                                    reduce = res - target;
+                                } 
+                            }
+                            r --;                                
+                        } else {
+                            if (result === null) {
+                                result = res;
+                                reduce = target - res;
+                            } else {
+                                if (target - res < reduce) {
+                                    result = res;
+                                    reduce = target - res;
+                                } 
+                            }
+                            l ++;
+                        }                   
+                    }
+                }
+            }
+            return result;
+        };
+        threeSumClosest([0,2,1,-3], 1);
+    </script>
+</body>
+</html>
