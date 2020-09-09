@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最长不含重复字符串的子字符串</title>
+</head>
+<body>
+    <script>
+        var lengthOfLongestSubstring = function(s) {
+            let res = 0;
+            let temp = [];
+            for (let item of s) {
+                let index = temp.indexOf(item);
+                if (index >= 0) {
+                    temp.push(item);
+                    temp = temp.slice(index + 1);
+                    res = temp.length > res ? temp.length : res;
+                } else {    
+                    temp.push(item);
+                    res = temp.length > res ? temp.length : res;
+                }
+            }
+            return res;
+        };
+    </script>
+</body>
+</html>
