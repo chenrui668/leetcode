@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两数相除</title>
+</head>
+<body>
+    <script>
+        var divide = function(dividend, divisor) {
+            let isMinus = (dividend < 0 && divisor >= 0) || (dividend >= 0 && divisor < 0);
+            let a = dividend < 0 ? -dividend : dividend;
+            let b = divisor < 0 ? -divisor : divisor;
+            let res = 0;
+            function cal(a, b, n) {
+                if (a < b) {
+                    return ;
+                }
+                let r = 0;
+                let length = a.toString().length - n;
+                let start = parseInt(a.toString().slice(0, length));
+                let end = a.toString().slice(length);
+                while(start >= b) {
+                    start -= b;
+                    r += 1;
+                }
+                if (n > 0) {
+                    res += parseInt(r.toString() + '0'.repeat(n));
+                }else {
+                    res += r;
+                }
+                cal(parseInt(start.toString() + end), b, n - 1);
+            }
+            cal(a, b, a.toString().length - b.toString().length);
+            if (isMinus) {
+                if (res > 2147483648) {
+                    return -2147483648;
+                } else {
+                    return -res;
+                }
+            } else {
+                if (res > 2147483647) {
+                    return 2147483647;
+                } else {
+                    return res;
+                }
+            }
+        };
+        console.log(divide(2147483648, 2));
+    </script>
+</body>
+</html>

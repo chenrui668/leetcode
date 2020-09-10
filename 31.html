@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组合总和</title>
+</head>
+<body>
+    <script>
+        var combinationSum = function(candidates, target) {
+            let res = [];
+            let sum = 0;
+            function dfs(start, temp) {
+                if (sum >= target) {
+                    if (sum === target) {
+                        res.push(temp.slice());
+                    }
+                    return ;
+                }
+                for (let i = start; i < candidates.length; i ++) {
+                    sum += candidates[i];
+                    temp.push(candidates[i]);
+                    dfs(i, temp);
+                    sum -= candidates[i];
+                    temp.pop();
+                }
+            }
+            dfs(0, []);
+            return res;
+        };
+    </script>
+</body>
+</html>

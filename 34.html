@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>串联所有单词的子串</title>
+</head>
+<body>
+    <script>
+        var findSubstring = function(s, words) {
+            let len = words[0].length;
+            let strLen = len * words.length;
+            let res = [];
+            function check(word, i, idx) {
+                if (word.length === 0) {
+                    res.push(idx);
+                }
+                let index = word.indexOf(s.slice(i, len + i));
+                if (index >= 0) {
+                    let temp = word.slice();
+                    temp.splice(index, 1);
+                    check(temp, i + len, idx);
+                } else {
+                    return ;
+                }
+            }
+            for (let i = 0; i < s.length - strLen + 1; i ++) {
+                check(words, i, i)
+            }
+            return res;
+        };
+        console.log(findSubstring('dwadwadwa', ['ad', 'dw']));
+    </script>
+</body>
+</html>
