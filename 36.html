@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组合总和III</title>
+</head>
+<body>
+    <script>
+        var combinationSum3 = function(k, n) {
+            let arr = [1,2,3,4,5,6,7,8,9];
+            let res = [];
+            let sum = 0;
+            function dfs(start, temp) {
+                if (sum >= n) {
+                    if (sum === n) {
+                        res.push(temp.slice());
+                    }
+                    return ;
+                }
+                for (let i = start; i < arr.length; i ++) {
+                    sum += arr[i];
+                    temp.push(arr[i]);
+                    dfs(i + 1, temp);
+                    sum -= arr[i];
+                    temp.pop();
+                }
+            }
+            dfs(0, []);
+            return res.filter(item => item.length === k);
+        };
+        
+        console.log(combinationSum3(3, 9));
+    </script>
+</body>
+</html>
