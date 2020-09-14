@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全排列II</title>
+</head>
+<body>
+    <script>
+        var permuteUnique = function(nums) {
+            let res = [];
+            function dfs(start, temp, index) {
+                if (temp.length === nums.length) {
+                    res.push(temp.slice());
+                    return ;
+                }
+                for (let i = start; i < nums.length; i ++) {
+                    if (index.indexOf(i) === -1) {
+                        temp.push(nums[i]);
+                        index.push(i);
+                        dfs(0, temp, index);
+                        temp.pop();
+                        index.pop();
+                    }
+                }
+            }
+            dfs(0, [], []);
+            let r = new Map();
+            res.forEach(item=>{
+                r.set(item.join(),item);
+            });        
+            return Array.from(r.values());
+        };
+        console.log(permuteUnique([1,1,2]))
+    </script>
+</body>
+</html>
