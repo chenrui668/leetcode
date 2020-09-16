@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>螺旋矩阵II</title>
+    <title>最后一个单词的长度</title>
 </head>
 <body>
     <script>
-        var generateMatrix = function(n) {
-            
+        var lengthOfLastWord = function(s) {
+            s = s.trim();
+            if(!s) return 0;
+            let index = s.lastIndexOf(' ');
+            if (index >= 0) {
+                return s.length - 1 - index;
+            } else {
+                return s.length;
+            }
         };
+        lengthOfLastWord("a hello world")
     </script>
 </body>
 </html>

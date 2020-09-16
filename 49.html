@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解数独</title>
+</head>
+<body>
+    <script>
+        var solveSudoku = function(board) {
+            function check(r, c, val) {
+                for (let i = 0; i < 9; i ++) {
+                    if (board[r][i] == val || board[i][c] == val) {
+                        return true;
+                    }
+                }
+                let rstart = Math.floor(r / 3) * 3;
+                let cstart = Math.floor(c / 3) * 3;
+                for (let i = 0; i < 3; i ++) {
+                    for (let j = 0; j < 3; j ++) {
+                        if (board[i + rstart][j + cstart] == val) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            function fill(i, j) {
+                if (j == 9) {
+                    if (i == 8) {
+                        return true;
+                    } else {
+                        j = 0;
+                        i ++;
+                    }
+                }
+                if (board[i][j] !== '.') {
+                    return fill(i, j + 1);
+                }
+                for (let num = 1; num <= 9; num ++) {
+                    if (check(i, j, num)) {
+                        continue;
+                    } else {
+                        board[i][j] = num.toString();
+                        if (fill(i, j + 1)) {
+                            return true;
+                        }
+                        board[i][j] = '.';
+                    }
+                }
+                return false;
+            }
+            fill(0, 0);
+            return board;
+        };
+        console.log(solveSudoku([["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]))
+    </script>
+</body>
+</html>

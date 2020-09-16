@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第k个排列</title>
+</head>
+<body>
+    <script>
+        var getPermutation = function(n, k) {
+            let res = [];
+            function cal(n) {
+                if (n === 1 || n === 0) {
+                    return 1;
+                } else {
+                    return n * cal(n - 1);
+                }
+            }
+            let start = Math.ceil(k / cal(n - 1));
+            let index = k - (start - 1) * cal(n - 1);
+            function dfs(start, temp, max) {
+                if (temp.length === n) {
+                    res.push(temp.slice().join(''));
+                    return ;
+                }
+                for (let i = start; i <= max; i ++) {
+                    if (temp.indexOf(i) === -1) {
+                        temp.push(i);
+                        dfs(1, temp, n);
+                        temp.pop();
+                    }
+                }
+            }
+            dfs(start, [], start);
+            return res[index - 1];
+        };
+        console.log(getPermutation(1, 1))
+    </script>
+</body>
+</html>

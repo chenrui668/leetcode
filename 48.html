@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不同路径II</title>
+</head>
+<body>
+    <script>
+        var uniquePathsWithObstacles = function(obstacleGrid) {
+            let m = obstacleGrid.length;
+            let n = obstacleGrid[0].length;
+            if (obstacleGrid[0][0] == 1 || obstacleGrid[m - 1][n - 1] == 1) {
+                return 0;
+            }
+            let mdef = 1;
+            for (let i = 0; i < m; i ++) {
+                if (obstacleGrid[i][0] == 1) {
+                    obstacleGrid[i][0] = 0;
+                    mdef = 0;
+                } else {
+                    obstacleGrid[i][0] = mdef;
+                }
+            }
+            let ndef = 1;
+            for (let j = 1; j < n; j ++) {
+                if (obstacleGrid[0][j] == 1) {
+                    obstacleGrid[0][j] = 0;
+                    ndef = 0;
+                } else {
+                    obstacleGrid[0][j] = ndef;
+                }
+            }
+            for (let i = 1; i < m; i ++) {
+                for (let j = 1; j < n; j ++) {
+                    if (obstacleGrid[i][j] == 1) {
+                        obstacleGrid[i][j] = 0;
+                    } else {
+                        obstacleGrid[i][j] = obstacleGrid[i - 1][j] + obstacleGrid[i][j - 1];
+                    }
+                }
+            }
+            return obstacleGrid[m - 1][n - 1];
+        };
+        console.log(uniquePathsWithObstacles([[0,0,0],[0,1,0],[0,0,0]]));
+    </script>
+</body>
+</html>
