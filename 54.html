@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本左右对齐</title>
+</head>
+<body>
+    <script>
+        var fullJustify = function(words, maxWidth) {
+            let len = 0;
+            let res = [];
+            for (let i = 0; i < words.length; i ++) {
+                if (len === 0) {
+                    len += words[i].length;
+                    if (i === words.length - 1) {
+                        let le = maxWidth - len;
+                        let str = words[0];
+                        for (let j = 0; j < le; j ++) {
+                            str += ' ';
+                        }
+                        res.push(str);
+                    }
+                } else {
+                    if (len + words[i].length + 1 > maxWidth) {
+                        let temp = words.slice(0, i);
+                        words.splice(0, temp.length);
+                        i = -1;
+                        let l = maxWidth - len;
+                        for (let j = 0; j < l; j ++) {
+                            let k = 0;
+                            if (temp.length !== 1) {
+                                k = j % (temp.length - 1);
+                            }
+                            temp[k] += ' ';
+                        }
+                        res.push(temp.join(' '));
+                        len = 0;
+                    } else {
+                        len += words[i].length + 1;
+                        if (i === words.length - 1) {
+                            let le = maxWidth - len;
+                            let str = words.slice(0).join(' ');
+                            for (let j = 0; j < le; j ++) {
+                                str += ' ';
+                            }
+                            res.push(str);
+                        }
+                    }
+                }
+            }   
+            return res;
+        };
+        console.log(fullJustify(["Science","is","what","we","understand","well","enough","to","explain",
+         "to","a","computer.","Art","is","everything","else","we","do"], 20))
+    </script>
+</body>
+</html>

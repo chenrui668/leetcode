@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二进制求和</title>
+</head>
+<body>
+    <script>
+        // var addBinary = function(a, b) {
+        //     let valA = 0;
+        //     let valB = 0;
+        //     let lenA = a.length;
+        //     let lenB = b.length;
+        //     for (let i = 0; i < lenA; i ++) {
+        //         valA += +a.charAt(i) * Math.pow(2, lenA - 1 - i);
+        //     }
+        //     for (let i = 0; i < lenB; i ++) {
+        //         valB += +b.charAt(i) * Math.pow(2, lenB - 1 - i);
+        //     }
+        //     let val = valA + valB;
+        //     let n = 0;
+        //     if (val == 0) {
+        //         return '0';
+        //     }
+        //     for (let i = 0; i >= 0; i ++) {
+        //         if (Math.pow(2, i) <= val && Math.pow(2, i + 1) > val) {
+        //             n = i;
+        //             break;
+        //         }
+        //     }
+        //     let res = [];
+        //     for (let i = n; i >= 0; i --) {
+        //         if (val >= Math.pow(2, i)) {
+        //             res.push('1');
+        //             val -= Math.pow(2, i);
+        //         } else {
+        //             res.push('0');
+        //         }
+        //     }
+        //     return res.join('');
+        // };
+        var addBinary = function(a, b) {
+            let long = a.length >= b.length ? a.split('').map(item => parseInt(item)) : b.split('').map(item => parseInt(item));
+            let short = a.length < b.length ? a.split('').map(item => parseInt(item)) : b.split('').map(item => parseInt(item));
+            let k = long.length - short.length;
+            for (let i = long.length - 1; i >= k; i --) {
+                long[i] = long[i] + short[i - k];
+            }
+            for (let i = long.length - 1; i >= 0; i --) {
+                if (long[i] >= 2) {
+                    long[i] -= 2;
+                    if (i === 0) {
+                        long.unshift(1)
+                    } else {
+                        long[i - 1] += 1;
+                    }
+                }
+            }
+            return long.join('');
+        };
+        console.log(addBinary('1001', '10'));
+    </script>
+</body>
+</html>
