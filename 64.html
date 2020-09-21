@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>矩阵置零</title>
+</head>
+<body>
+    <script>
+        var setZeroes = function(matrix) {
+            let rows = [];
+            let cols = [];
+            for (let i = 0; i < matrix.length; i ++) {
+                for (let j = 0; j < matrix[i].length; j ++) {
+                    if (matrix[i][j] === 0) {
+                        rows.push(i);
+                        cols.push(j);
+                    }
+                }
+            }
+            rows = [...new Set(rows)];
+            cols = [...new Set(cols)];
+            for (let i = 0; i < rows.length; i ++) {
+                for (let j = 0; j < matrix[rows[i]].length; j ++) {
+                    matrix[rows[i]][j] = 0;
+                }
+            }
+            for (let i = 0; i < cols.length; i ++) {
+                for (let j = 0; j < matrix.length; j ++) {
+                    matrix[j][cols[i]] = 0;
+                }
+            }
+            return matrix;
+        };
+        console.log(setZeroes([[1,1,1], [1,0,1], [1,1,1]]))
+    </script>
+</body>
+</html>

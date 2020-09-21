@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有效的括号</title>
+</head>
+<body>
+    <script>
+        var isValid = function(s) {
+            let left = ['(', '[', '{'];
+            let right = [')', ']', '}'];
+            let temp = [];
+            for (let i = 0; i < s.length; i ++) {
+                let index = left.indexOf(s.charAt(i));
+                if (index >= 0) {
+                    temp.unshift(s.charAt(i));
+                } else {
+                    let idx = right.indexOf(s.charAt(i));
+                    if (temp[0] === left[idx]) {
+                        temp.shift();
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return temp.length === 0;
+        };
+        console.log(isValid('('))
+    </script>
+</body>
+</html>

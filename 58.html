@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外观数列</title>
+</head>
+<body>
+    <script>
+        var countAndSay = function(n) {
+            let res = ['1'];
+            for (let i = 1; i < n; i ++) {
+                let temp = [];
+                let str = '';
+                for (let j = 0; j < res[i - 1].length; j ++) {
+                    if (temp.length === 0 || res[i - 1].charAt(j) === temp[0]) {
+                        temp.push(res[i - 1].charAt(j));
+                    } else {
+                        str += `${temp.length}${temp[0]}`;
+                        temp = [res[i - 1].charAt(j)];
+                    }
+                    if (j === res[i - 1].length - 1) {
+                        str += `${temp.length}${temp[0]}`;
+                        temp = [];
+                    }
+                }
+                res.push(str);
+            }
+            return res[n - 1];
+        };
+        console.log(countAndSay(9))
+    </script>
+</body>
+</html>
