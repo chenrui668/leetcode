@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单词搜索</title>
+</head>
+<body>
+    <script>
+        var exist = function(board, word) {
+            let rows = board.length;
+            let cols = board[0].length;
+            function check(i, j, word) {
+                if (i === -1 || j === -1 || i === rows || j === cols || board[i][j] !== word.charAt(0)) {
+                    return false;
+                } else {
+                    if (word.length === 1) {
+                        return true;
+                    }
+                    let temp = board[i][j];
+                    let w = word.charAt(0);
+                    board[i][j] = '';
+                    word = word.slice(1);
+                    let res = check(i, j + 1, word) || check(i + 1, j, word) || check(i, j - 1, word) || check(i - 1, j, word);
+                    board[i][j] = temp;
+                    word = w + word;
+                    return res;
+                }
+            }
+            for(let i = 0; i < rows; i ++) {
+                for (let j = 0; j < cols; j ++) {
+                    if (check(i, j, word)) {
+                        return true;
+                    }
+                }
+            } 
+            return false;
+        };
+        console.log(exist([['A', 'B', 'C', 'E'], ['S', 'F', 'C', 'S'], ['A', 'D', 'E', 'E']], 'ABCB'));
+    </script>
+</body>
+</html>

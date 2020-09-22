@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组合</title>
+</head>
+<body>
+    <script>
+        var combine = function(n, k) {
+            let res = [];
+            function cal(start, temp) {
+                if (temp.length === k) {
+                    res.push(temp.slice());
+                    return;
+                }
+                for (let i = start; i < n; i ++) {
+                    temp.push(i + 1);
+                    cal(i + 1, temp);
+                    temp.pop();
+                }
+            }
+            cal(0, []);
+            return res;
+        };
+        console.log(combine(4, 2));
+    </script>
+</body>
+</html>

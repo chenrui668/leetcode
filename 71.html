@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>螺旋矩阵II</title>
+</head>
+<body>
+    <script>
+        var generateMatrix = function(n) {
+            let res = [];
+            for (let i = 0; i < n; i ++) {
+                res.push([]);
+            }
+            let key = 1;
+            let resi = 0;
+            let resj = 0;
+            let s = 0;
+            for(let i = 1; i <= n * n; i ++) {
+                res[resi][resj] = i;
+                if (key === 1) {
+                    resj ++;
+                    if (resj === n - s - 1) {
+                        key = 2;
+                    } 
+                } else if (key === 2) {
+                    resi ++;
+                    if (resi === n - s - 1){
+                        key = 3;
+                    }
+                } else if (key === 3) {
+                    resj --;
+                    if (resj === s) {
+                        key = 4;
+                    }
+                } else {
+                    resi --;
+                    if (resi === s) {
+                        s ++;
+                        resi ++;
+                        resj ++;
+                        key = 1;
+                    }
+                }
+            }
+            return res;
+        };
+        console.log(generateMatrix(2))
+    </script>
+</body>
+</html>

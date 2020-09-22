@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索二维矩阵</title>
+</head>
+<body>
+    <script>
+        var searchMatrix = function(matrix, target) {
+            if (matrix.length === 0) {
+                return false;
+            }
+            let index = 0;
+            for (let i = 0; i < matrix.length; i ++) {
+                if (matrix[i][0] <= target && (i === matrix.length - 1 || matrix[i + 1][0] > target)) {
+                    index = i;
+                }
+            }
+            return matrix[index].includes(target);
+        };
+        console.log(searchMatrix([], 100))
+    </script>
+</body>
+</html>
