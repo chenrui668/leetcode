@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复原IP地址</title>
+</head>
+<body>
+    <script>
+        var restoreIpAddresses = function(s) {
+            let res = [];
+            function cal(s, temp) {
+                if (s.length === 0 && temp.length === 4) {
+                    res.push(temp.join('.'));
+                }
+                for (let i = 1; i <= 3; i ++) {
+                    if (i > s.length || (temp.length === 2 && s.length - i > 3)) {
+                        continue;
+                    }
+                    let str = s.slice(0, i);
+                    if ((str.charAt(0) == 0 && str.length > 1) || str > 255) {
+                        return ;
+                    }
+                    temp.push(str);
+                    s = s.slice(i);
+                    cal(s, temp);
+                    s = str + s;
+                    temp.pop();
+                }
+            }   
+            cal(s, []);
+            return res;
+        };
+        console.log(restoreIpAddresses("101023"))
+    </script>
+</body>
+</html>

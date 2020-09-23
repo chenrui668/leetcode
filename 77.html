@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交错字符串</title>
+</head>
+<body>
+    <script>
+        var isInterleave = function(s1, s2, s3) {
+            if (s1.length + s2.length !== s3.length) {
+                return false;
+            }
+            let memo = new Array(s1.length + 1);
+            for (let i = 0; i < memo.length; i ++) {
+                memo[i] = new Array(s2.length + 1);
+            }
+            function check(i, j, k) {
+                if (memo[i][j] != null) {
+                    return memo[i][j];
+                }
+                if (k === s3.length) {
+                    return true;
+                } 
+                let res1 = false, res2 = false;
+                if (i < s1.length && s1.charAt(i) === s3.charAt(k)) {
+                    res1 = check(i + 1, j, k + 1);
+                }
+                if (j < s2.length && s2.charAt(j) === s3.charAt(k)) {
+                    res2 = check(i, j + 1, k + 1);
+                }
+                memo[i][j] = res1 || res2;
+                return res1 || res2;
+            }
+            return check(0, 0, 0);
+        };
+        console.log(isInterleave("babd", "abdc", "babdabcd"));
+    </script>
+</body>
+</html>

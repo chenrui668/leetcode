@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不同的子序列</title>
+</head>
+<body>
+    <script>
+        var numDistinct = function(s, t) {
+            // let res = 0;
+            // function sum(start, index, temp) {
+            //     if (temp.length === t.length) {
+            //         res += 1;
+            //         return;
+            //     }
+            //     for (let i = start; i < s.length; i ++) {
+            //         if (s.charAt(i) === t.charAt(index)) {
+            //             temp.push(s.charAt(i));
+            //             sum(i + 1, index + 1, temp);
+            //             temp.pop();
+            //         }
+            //     }
+            // }
+            // sum(0, 0, []);
+            // return res;
+            let n = s.length;
+            let m = t.length;
+            let dp = [ ...new Array(m + 1) ].map(() => new Array(n + 1));
+            for (let i = 0; i <= n; i ++) {
+                dp[0][i] = 1;
+            }
+            for (let j = 1; j <= m; j ++) {
+                dp[j][0] = 0;
+            }
+            for (let i = 0; i < m; i ++) {
+                for (let j = 0; j < n; j ++) {
+                    if (s[j] === t[i]) {
+                        dp[i + 1][j + 1] = dp[i][j] + dp[i + 1][j];
+                    } else {
+                        dp[i + 1][j + 1] = dp[i + 1][j];
+                    }
+                }
+            }
+            return dp[m][n];
+        };
+        console.log(numDistinct('rabbbit', 'rabbit'));
+    </script>
+</body>
+</html>
