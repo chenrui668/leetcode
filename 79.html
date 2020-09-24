@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杨辉三角</title>
+</head>
+<body>
+    <script>
+        var generate = function(numRows) {
+            let res = [[1], [1, 1]];
+            if (numRows < 3) {
+                return res.slice(0, numRows);
+            }
+            for (let i = 2; i < numRows; i ++) {
+                let temp = new Array(i + 1);
+                for (let j = 0; j < temp.length; j ++) {
+                    if (j === 0 || j === temp.length - 1) {
+                        temp[j] = 1;
+                    } else {
+                        temp[j] = res[i - 1][j - 1] + res[i - 1][j];
+                    }
+                }
+                res.push(temp);
+            }
+            return res;
+        };
+        console.log(generate(10))
+    </script>
+</body>
+</html>

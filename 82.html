@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>买卖股票的最佳时机II</title>
+</head>
+<body>
+    <script>
+        var maxProfit = function(prices) {
+            let res = 0;
+            let min = null;
+            let max = null;
+            for (let i = 0; i < prices.length; i ++) {
+                if (min === null || (max === null && prices[i] < min)) {
+                    min = prices[i];
+                    continue;
+                }
+                if ((max === null && prices[i] > min) || max < prices[i]) {
+                    max = prices[i];
+                    if (i === prices.length - 1) {
+                        res += max - min;
+                        break;
+                    }
+                } else if (max >= prices[i]) {
+                    res += max - min;
+                    min = prices[i];
+                    max = null;
+                }
+            }
+            return res;
+        };  
+        console.log(maxProfit([1,2,3,4,5]))
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>验证回文串</title>
+</head>
+<body>
+    <script>
+        var isPalindrome = function(s) {
+            let str = s.replace(/\W|_/g, '').toLowerCase();
+            let n = Math.ceil(str.length / 2);
+            for (let i = 0; i < n; i ++) {
+                if (str.charAt(i) !== str.charAt(str.length - i - 1)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        console.log(isPalindrome("A man, a plan, a canal: Panama"))
+    </script>
+</body>
+</html>

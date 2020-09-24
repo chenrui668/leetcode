@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杨辉三角II</title>
+</head>
+<body>
+    <script>
+        var getRow = function(rowIndex) {
+            let res = [[1], [1, 1]];
+            if (rowIndex < 2) {
+                return res[rowIndex];
+            }
+            for (let i = 2; i < rowIndex + 1; i ++) {
+                let temp = new Array(i + 1);
+                for (let j = 0; j < temp.length; j ++) {
+                    if (j === 0 || j === temp.length - 1) {
+                        temp[j] = 1;
+                    } else {
+                        temp[j] = res[i - 1][j - 1] + res[i - 1][j];
+                    }
+                }
+                res.push(temp);
+            }
+            return res[rowIndex];
+        };
+        console.log(getRow(33))
+    </script>
+</body>
+</html>

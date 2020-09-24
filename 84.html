@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单词接龙</title>
+</head>
+<body>
+    <script>
+        var ladderLength = function(beginWord, endWord, wordList) {
+            if (!wordList.includes(endWord)) {
+                return 0;
+            }
+            function check(word1, word2) {
+                let n = 0;
+                for (let i = 0; i < word1.length; i ++) {
+                    if (word1.charAt(i) !== word2.charAt(i)) {
+                        n ++;
+                    }
+                }
+                return n === 1;
+            } 
+            let res = 0;
+            function cal(word, list, step) {
+                if (res !== 0 && step >= res) {
+                    return;
+                }
+                if (word === endWord) {
+                    res = step;
+                    return;
+                }
+                if (list.length === 0) {
+                    return;
+                }
+                for (let i = 0; i < list.length; i ++) {
+                    if (check(word, list[i])) {
+                        let temp = list[i];
+                        list.splice(i, 1);
+                        cal(temp, list, step + 1) 
+                        list.splice(i, 0, temp);
+                    }
+                }
+            }
+            cal(beginWord, wordList, 1);
+            return res;
+        };
+        console.log(ladderLength("hit", "cog", ["hot","dot","dog","lot","log"]));
+    </script>
+</body>
+</html>
