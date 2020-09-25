@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最长连续序列</title>
+</head>
+<body>
+    <script>
+        var longestConsecutive = function(nums) {
+            if (nums.length === 0) {
+                return 0;
+            }
+            nums.sort((a, b) => a - b);
+            let len = 1;
+            let res = 1;
+            for (let i = 1; i < nums.length; i ++) {
+                if (nums[i] === nums[i - 1] && i !== nums.length - 1) {
+                    continue;
+                }
+                if (nums[i] === nums[i - 1] + 1) {
+                    len ++;
+                } else {
+                    res = len > res ? len : res;
+                    len = 1;
+                }
+                if (i === nums.length - 1) {
+                    res = len > res ? len : res;
+                }
+            }
+            return res;
+        };
+        console.log(longestConsecutive([0,0,-1]))
+    </script>
+</body>
+</html>

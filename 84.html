@@ -8,6 +8,41 @@
 <body>
     <script>
         var ladderLength = function(beginWord, endWord, wordList) {
+            // if (!wordList.includes(endWord)) {
+            //     return 0;
+            // }
+            // function check(word1, word2) {
+            //     let n = 0;
+            //     for (let i = 0; i < word1.length; i ++) {
+            //         if (word1.charAt(i) !== word2.charAt(i)) {
+            //             n ++;
+            //         }
+            //     }
+            //     return n === 1;
+            // } 
+            // let res = 0;
+            // function cal(word, list, step) {
+            //     if (res !== 0 && step >= res) {
+            //         return;
+            //     }
+            //     if (word === endWord) {
+            //         res = step;
+            //         return;
+            //     }
+            //     if (list.length === 0) {
+            //         return;
+            //     }
+            //     for (let i = 0; i < list.length; i ++) {
+            //         if (check(word, list[i])) {
+            //             let temp = list[i];
+            //             list.splice(i, 1);
+            //             cal(temp, list, step + 1) 
+            //             list.splice(i, 0, temp);
+            //         }
+            //     }
+            // }
+            // cal(beginWord, wordList, 1);
+            // return res;
             if (!wordList.includes(endWord)) {
                 return 0;
             }
@@ -20,31 +55,55 @@
                 }
                 return n === 1;
             } 
-            let res = 0;
-            function cal(word, list, step) {
-                if (res !== 0 && step >= res) {
-                    return;
-                }
-                if (word === endWord) {
-                    res = step;
-                    return;
-                }
-                if (list.length === 0) {
-                    return;
-                }
-                for (let i = 0; i < list.length; i ++) {
-                    if (check(word, list[i])) {
-                        let temp = list[i];
-                        list.splice(i, 1);
-                        cal(temp, list, step + 1) 
-                        list.splice(i, 0, temp);
+            let list = new Map();
+            let arr = [];
+            for (let i = 0; i < wordList.length; i ++) {
+                let temp = [];
+                for (let j = 0; j < wordList.length; j ++) {
+                    if (i === j) {
+                        continue;
+                    }
+                    if (check(wordList[i], wordList[j])) {
+                        temp.push(wordList[j]);
                     }
                 }
+                if (temp.length > 0) {
+                    list.set(wordList[i], temp);
+                }
+                if (check(beginWord, wordList[i])) {
+                    arr.push(wordList[i]);
+                } 
+            }  
+            if (arr.length > 0) {
+                list.set(beginWord, arr);
+            } else {
+                return 0;
             }
-            cal(beginWord, wordList, 1);
-            return res;
+            let step = 1;
+            let now = [beginWord];
+            let rlist = [];
+            while(now.length > 0) {
+                step ++;
+                let next = [];
+                for (let i = 0; i < now.length; i ++) {
+                    let ls = list.get(now[i]);
+                    for (let j = 0; j < ls.length; j ++) {
+                        if (ls[j] === endWord) {
+                            return step;
+                        }
+                        if (rlist.includes(ls[j])) {
+                            continue;
+                        } else {
+                            rlist.push(ls[j]);
+                            next.push(ls[j]);
+                        }
+                    }
+                } 
+                now = next;
+            }
+            return 0;
         };
-        console.log(ladderLength("hit", "cog", ["hot","dot","dog","lot","log"]));
+        console.log(ladderLength("hit", "cog", ["hot","dot","tog", "cog"]));
     </script>
 </body>
 </html>

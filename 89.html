@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>翻转字符串里的单词</title>
+</head>
+<body>
+    <script>
+        var reverseWords = function(s) {
+            s = s.trim();
+            for (let i = 0; i < s.length; i ++) {
+                if (s.charAt(i) === ' ' && s.charAt(i - 1) === ' ') {
+                    s = s.slice(0, i) + s.slice(i + 1);
+                    i --;
+                }
+            }
+            return s.split(' ').reverse().join(' ');
+        };
+        console.log(reverseWords('  aa  b'))
+    </script>
+</body>
+</html>

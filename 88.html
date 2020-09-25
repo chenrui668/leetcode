@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>逆波兰表达式求值</title>
+</head>
+<body>
+    <script>
+        var evalRPN = function(tokens) {
+            let i = 0;
+            while(tokens.length > 1) {
+                if (tokens[i] === '+') {
+                    let res = +tokens[i - 2] + +tokens[i - 1];
+                    tokens[i - 2] = res;
+                    tokens.splice(i - 2, 3, res);
+                    i --;
+                } else if (tokens[i] === '-') {
+                    let res = tokens[i - 2] - tokens[i - 1];
+                    tokens[i - 2] = res;
+                    tokens.splice(i - 2, 3, res);
+                    i --;
+                } else if (tokens[i] === '*') {
+                    let res = tokens[i - 2] * tokens[i - 1];
+                    tokens[i - 2] = res;
+                    tokens.splice(i - 2, 3, res);
+                    i --;
+                } else if (tokens[i] === '/') {
+                    let res = parseInt(tokens[i - 2] / tokens[i - 1]);
+                    res = res === -0 ? 0 : res;
+                    tokens[i - 2] = res;
+                    tokens.splice(i - 2, 3, res);
+                    i --;
+                } else {
+                    i ++;
+                }
+            }
+            return tokens[0];
+        };
+        console.log(evalRPN(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]))
+    </script>
+</body>
+</html>
